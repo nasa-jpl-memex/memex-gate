@@ -1,5 +1,7 @@
 # LegisGATE
 
+<img src="./logo/legisgate_logo.png" align="right" width="300" />
+
 Introduction... what is it?
 ------------------------
 A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over legislative resources such as online ads, debarment information, federal and district court appeals, press releases, etc. The LegisGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale with a specific focus on the legislative domain.
