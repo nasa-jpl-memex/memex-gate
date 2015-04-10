@@ -24,6 +24,11 @@
 #export behe_home=`pwd .`
 export LEGISGATE_HOME=`pwd .`
 
+# so that filenames w/ spaces are handled correctly in loops below
+IFS=
+# restore ordinary behaviour
+unset IFS
+
 # initial CLASSPATH
 CLASSPATH=""
 
@@ -40,6 +45,9 @@ export HADOOP_CLASSPATH="$CLASSPATH"
 
 LIBJARS=`echo $HADOOP_CLASSPATH | tr : ,`
 
+
+#CLASSPATH=$(JARS=("$LEGISGATE_HOME/legisgate/libext"/*.jar); IFS=:; echo "${JARS[*]}")
+
 # Generates a Behemoth Corpus from a directory containing many Nutch segments
 #hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-io-1.2-SNAPSHOT-job.jar com.digitalpebble.behemoth.io.nutch.NutchSegmentConverterJob -dir data/ behemoth_corpus/legisgate_corpus -libjars "$LIBJARS" 
 
@@ -47,7 +55,7 @@ LIBJARS=`echo $HADOOP_CLASSPATH | tr : ,`
 #hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-gate-1.2-SNAPSHOT-job.jar com.digitalpebble.behemoth.gate.GATEDriver behemoth_corpus/legisgate_corpus behemoth_corpus/legisgate_corpus_annotated apps/legisgate2.zip -libjars "$LIBJARS"
 
 # Indexes the annotated corpus to Elasticsearch
-hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-elasticsearch-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.es.ESIndexerJob -Des.resource=labor/courtdocs,es.nodes=10.3.2.57,es.batch.write.retry.wait=20s behemoth_corpus/legisgate_corpus_annotated
+hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-elasticsearch-1.0-SNAPSHOT.jar com.digitalpebble.behemoth.es.ESIndexerJob -libjars "$LIBJARS" -Des.resource=labor/courtdocs data
 
 #mvn clean package 
 
