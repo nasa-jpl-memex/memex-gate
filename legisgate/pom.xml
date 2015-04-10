@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+  
+   http://www.apache.org/licenses/LICENSE-2.0
+   
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.nasa.jpl.memex</groupId>
+  <artifactId>legisgate</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>legisgate</name>
+  <url>https://github.com/lewismc/legisgate</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>NASA Jet Propulsion Laboratory</name>
+    <url>http://www.jpl.nasa.gov</url>
+  </organization>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
+    <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
+    <behemoth.version>1.2-SNAPSHOT</behemoth.version>
+  </properties>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <directory>target</directory>
+    <outputDirectory>${basedir}/target/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin.version}</version>
+          <configuration>
+            <filesets>
+              <fileset>
+                <directory>${basedir}/lib</directory>
+                <followSymlinks>false</followSymlinks>
+                <useDefaultExcludes>true</useDefaultExcludes>
+                <includes>
+                  <include>*.jar</include>
+                </includes>
+              </fileset>
+            </filesets>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin.version}</version>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-core</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-core-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-mahout</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-mahout-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-language-id</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-language-id-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-io</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-io-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-gate</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-gate-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-tika</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-tika-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-uima</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-uima-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-solr</artifactId>
+      <version>${behemoth.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-solr-1.2-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.digitalpebble.behemoth</groupId>
+      <artifactId>behemoth-elasticsearch</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libext/behemoth-elasticsearch-1.0-SNAPSHOT.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
