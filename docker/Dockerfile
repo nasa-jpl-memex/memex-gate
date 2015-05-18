@@ -21,20 +21,13 @@ FROM google/debian:wheezy
 
 MAINTAINER Lewis John McGibbney <lewis.j.mcgibbney@jpl.nasa.gov>
 
-# Get the package containing apt-add-repository installed for adding repositories
-RUN apt-get update && apt-get install -y software-properties-common apt-utils python-software-properties
-
 # Install openJDK 1.7
 RUN apt-get install -y openjdk-7-jdk 
 
 # Install various dependencies
-RUN apt-get install -y ant openssh-server git vim telnet subversion rsync curl build-essential
+RUN apt-get install -y ant wget maven openssh-server openssh-client git vim telnet subversion rsync curl build-essential
 
 RUN echo "JAVA_HOME=/usr/bin" >> /etc/environment
-# needs maven3, ironically retrieved through 'maven' package though 'maven2' exists. . .
-#RUN apt-get install -y maven
-#RUN apt-get install -y git
-RUN apt-get install -y curl wget openssh-server openssh-client
 
 RUN echo 'PATH=$PATH:HOME/bin:$JAVA_HOME/bin' >> /etc/profile &&\
     echo 'export JAVA_HOME' >> /etc/profile &&\
