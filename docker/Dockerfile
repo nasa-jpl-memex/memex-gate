@@ -61,9 +61,9 @@ USER root
 
 WORKDIR /tmp
 
-RUN wget http://archive.apache.org/dist/mahout/0.9/mahout-distribution-0.9.tar.gz && \
-    tar -xvzf mahout-distribution-0.9.tar.gz && \
-    mv mahout-distribution-0.9 /usr/local/mahout
+RUN wget http://archive.apache.org/dist/mahout/0.10.0/mahout-distribution-0.10.0.tar.gz && \
+    tar -xvzf mahout-distribution-0.10.0.tar.gz && \
+    mv mahout-distribution-0.10.0 /usr/local/mahout
 
 RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.2.0/hadoop-2.2.0.tar.gz && \
     tar -xvzf hadoop-2.2.0.tar.gz && \
