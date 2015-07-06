@@ -1,10 +1,10 @@
-# LegisGATE
+# MemexGATE
 
-<img src="./logo/legisgate_logo.png" align="right" width="300" />
+<img src="./logo/logo.png" align="right" width="300" />
 
 Introduction... what is it?
 ------------------------
-A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over legislative resources such as online ads, debarment information, federal and district court appeals, press releases, etc. The LegisGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale with a specific focus on the legislative domain.
+A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over legislative resources such as online ads, debarment information, federal and district court appeals, press releases, etc. The MemexGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale with a specific focus on the legislative domain.
 
 Features
 ---------
@@ -24,7 +24,7 @@ Use Cases
 
 This tool heavily leverages the [GATE](http://gate.ac.uk) software. GATE is an acronym for General Architecture for Text Engineering.
 Please see below for all of the steps required to use the software. 
-The document corpus' I've made available can be used with the LegisGATE application to do interesting things with legal documents such as
+The document corpus' I've made available can be used with the MemexGATE application to do interesting things with legal documents such as
 
  * natural language processing e.g. tokenization, sentence splitting, part-of-speech tagging, etc
  * named entity recognition e.g. identification of proper names, people. locations, organizations, date/time expressions, measures (percent, money, weight), email addresses, business addresses, etc.
@@ -39,11 +39,11 @@ The document corpus' I've made available can be used with the LegisGATE applicat
  * [Behemoth](https://github.com/DigitalPebble/behemoth) - check out the latest from Github
 
 #Installation
-There is VERY little installation required to run LegisGATE over and above provisioning your Hadoop node/cluster and then installing Behemoth as stated in the prerequisites above. 
-LegisGATE is a first class citizen within the Behemoth framework meaning that the Behemoth [Processing with GATE instructions](https://github.com/DigitalPebble/behemoth/wiki/tutorial#processing-with-gate) can be followed to the T. 
+There is VERY little installation required to run MemexGATE over and above provisioning your Hadoop node/cluster and then installing Behemoth as stated in the prerequisites above. 
+MemexGATE is a first class citizen within the Behemoth framework meaning that the Behemoth [Processing with GATE instructions](https://github.com/DigitalPebble/behemoth/wiki/tutorial#processing-with-gate) can be followed to the T. 
 
 This follows the following procedure
- * The zipped LegisGATE application must be pushed onto the distributed filesystem by copying the file from your local file system onto the hdfs as follows
+ * The zipped MemexGATE application must be pushed onto the distributed filesystem by copying the file from your local file system onto the hdfs as follows
 ```
 hadoop fs -copyFromLocal /mylocalpath/legisgate.zip /apps/legisgate.zip
 ``` 
@@ -83,7 +83,7 @@ hadoop fs -copyFromLocal /mylocalpath/legisgate.zip /apps/legisgate.zip
  
 Usage
 ------
-Run LegisGATE on your Behemoth document corpus as follows
+Run MemexGATE on your Behemoth document corpus as follows
 ```
 hadoop jar gate/target/behemoth-gate*job.jar com.digitalpebble.behemoth.gate.GATEDriver 
  "input path" "target output path" /apps/legisgate.zip
@@ -103,4 +103,4 @@ Contacts
 Lewis John McGibbney 0 lewis.j.mcgibbney@jpl.nasa.gov
 
 #License
-LegisGATE is licensed permissively under the [Apache Software License v2.0](http://www.apache.org/licenses/LICENSE-2.0)
+MemexGATE is licensed permissively under the [Apache Software License v2.0](http://www.apache.org/licenses/LICENSE-2.0)

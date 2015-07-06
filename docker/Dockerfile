@@ -21,6 +21,9 @@ FROM google/debian:wheezy
 
 MAINTAINER Lewis John McGibbney <lewis.j.mcgibbney@jpl.nasa.gov>
 
+# Get the package containing apt-add-repository installed for adding repositories
+RUN apt-get update && apt-get install -y software-properties-common
+
 # Install openJDK 1.7
 RUN apt-get install -y openjdk-7-jdk 
 
@@ -79,3 +82,13 @@ RUN sed 's#session\s*required\s*pam_loginuid.so#session optional pam_loginuid.so
 
 # so you can call 'mahout'
 ENV PATH $PATH:/usr/local/mahout/bin
+
+# Obtain the sources for DigitalPebble's Behemoth
+WORKDIR /usr/local
+RUN git clone https://github.com/DigitalPebble/behemoth.git
+cd behemoth && mvn clean install -DskipTests
+
+# Finally obtain the LegisGATE application
+WORKDIR /usr/local
+RUN git https://github.com/lewismc/legisgate.git
+
