@@ -15,148 +15,117 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#This script runs a full workflow consisting of
-# - Generates a Behemoth Corpus from a directory containing many Nutch segments
-# - Parses the Behemoth corpus using Apache Tika
-# - Processes the Behemoth corpus with LegisGATE
-# - Indexes the annotated corpus to Elasticsearch 
-#
+cygwin=false
+case "`uname`" in
+CYGWIN*) cygwin=true;;
+esac
 
-if [[ $# != 1 ]]; then
-	echo ".____                 .__         ________    ___________________________\n"
-	echo "|    |    ____   ____ |__| ______\/  _____\/   \/  _  \__    ___\/\_   _____/\n"
-	echo "|    |  _/ __ \ / ___\|  |/  ___/   \  ___  /  /_\  \|    |    |    __)_ \n"
-	echo "|    |__\  ___// /_/  >  |\___ \\    \_\  \/    |    \    |    |        /\\n"
-	echo "|_______ \___  >___  /|__/____  >\______  /\____|__  /____|   /_______  /"
-	echo "        \/   \/_____/         \/        \/         \/                 \/ "
-fi
-
-export LEGISGATE_HOME=`pwd .`
-
-# so that filenames w/ spaces are handled correctly in loops below
-IFS=
-# restore ordinary behaviour
-unset IFS
-
-# initial CLASSPATH
-CLASSPATH=""
-
-# add libs to CLASSPATH
-SEP=""
-
-for f in $LEGISGATE_HOME/legisgate/libext/*.jar; do
-  CLASSPATH=${CLASSPATH}$SEP$f;
-  SEP=":"
+# resolve links - $0 may be a softlink
+THIS="$0"
+while [ -h "$THIS" ]; do
+  ls=`ls -ld "$THIS"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '.*/.*' > /dev/null; then
+    THIS="$link"
+  else
+    THIS=`dirname "$THIS"`/"$link"
+  fi
 done
 
-#run it
-export HADOOP_CLASSPATH="$CLASSPATH"
+# if no args specified, show usage
+if [ $# = 0 ]; then
+  echo "   _____                                 ________    ___________________________"
+  echo "  /     \   ____   _____   ____ ___  ___/  _____/   /  _  \__    ___/\_   _____/"
+  echo " /  \ /  \_/ __ \ /     \_/ __ \\  \/  /   \  ___  /  /_\  \|    |    |    __)_ "
+  echo "/    Y    \  ___/|  Y Y  \  ___/ >    <\    \_\  \/    |    \    |    |  v0.1  \\"
+  echo "\____|__  /\___  >__|_|  /\___  >__/\_ \\______  /\____|__  /____|   /_______  /"
+  echo "        \/     \/      \/     \/      \/       \/         \/                 \/ "
+  echo "Server side framework for large scale General Architecture Text Engineering tasks."
+  echo "Usage: run COMMAND"
+  echo "where COMMAND is one of:"
+  echo "  ioWarc           load documents from WARC"
+  echo "  ioNutch          load documents from Nutch segment(s)"
+  echo "  ioHadoop         load documents from Hadoop Sequence files"
+  echo "  importer         generate a SequenceFile containing BehemothDocuments given a directory of raw docs"
+  echo "  reader           read and inspect document corpus"
+  echo "  exporter         read and execute intermediate document extraction creating new corpus"
+  echo "  filter           filter documents and create new corpus"
+  echo "  gate             process documents using MemexGATE apps"
+  echo "  tika             parse documents using Tika"
+  echo "  uima             process documents using UIMA"
+  echo "  mahout           generate vectors for clustering with Mahout"
+  echo "  solr             send documents to Solr for indexing"
+  echo "  elastic          send documents to ElasticSearch for indexing"
+  echo "  language-id      identify the language of documents"
+  echo "Most commands print help when invoked w/o parameters."
+  exit 1
+fi
 
-LIBJARS=`echo $HADOOP_CLASSPATH | tr : ,`
+# get arguments
+COMMAND=$1
+shift
 
+# some directories
+THIS_DIR="`dirname "$THIS"`"
+MEMEXGATE_HOME="`cd "$THIS_DIR/.." ; pwd`"
 
-#CLASSPATH=$(JARS=("$LEGISGATE_HOME/legisgate/libext"/*.jar); IFS=:; echo "${JARS[*]}")
+# figure out which class to run
+if [ "$COMMAND" = "reader" ] ; then
+  CLASS=com.digitalpebble.behemoth.util.CorpusReader
+  MODULE=core
+elif [ "$COMMAND" = "ioNutch" ] ; then
+  CLASS=com.digitalpebble.behemoth.io.nutch.NutchSegmentConverterJob
+  MODULE=io
+elif [ "$COMMAND" = "ioWarc" ] ; then
+  CLASS=com.digitalpebble.behemoth.io.warc.WARCConverterJob
+  MODULE=io
+elif [ "$COMMAND" = "ioHadoop" ] ; then
+  CLASS=com.digitalpebble.behemoth.io.sequencefile.SequenceFileConverterJob
+  MODULE=io
+elif [ "$COMMAND" = "filter" ] ; then
+  CLASS=com.digitalpebble.behemoth.util.CorpusFilter
+  MODULE=core
+elif [ "$COMMAND" = "importer" ] ; then
+  CLASS=com.digitalpebble.behemoth.util.CorpusGenerator
+  MODULE=core
+elif [ "$COMMAND" = "exporter" ] ; then
+CLASS=com.digitalpebble.behemoth.util.ContentExtractor
+  MODULE=core
+elif [ "$COMMAND" = "gate" ] ; then
+  CLASS=com.digitalpebble.behemoth.gate.GATEDriver
+  MODULE=gate
+elif [ "$COMMAND" = "tika" ] ; then
+  CLASS=com.digitalpebble.behemoth.tika.TikaDriver
+  MODULE=tika
+elif [ "$COMMAND" = "uima" ] ; then
+  CLASS=com.digitalpebble.behemoth.uima.UIMADriver
+  MODULE=uima
+elif [ "$COMMAND" = "mahout" ] ; then
+  CLASS=com.digitalpebble.behemoth.mahout.SparseVectorsFromBehemoth
+  MODULE=mahout
+elif [ "$COMMAND" = "solr" ] ; then
+  CLASS=com.digitalpebble.behemoth.solr.SOLRIndexerJob
+  MODULE=solr
+elif [ "$COMMAND" = "elastic" ] ; then
+  CLASS=com.digitalpebble.behemoth.es.ESIndexerJob
+  MODULE=elasticsearch
+elif [ "$COMMAND" = "language-id" ] ; then
+  CLASS=com.digitalpebble.behemoth.languageidentification.LanguageIdDriver
+  MODULE=language-id
+else
+  echo "unknown command"
+  exit -1;
+fi
 
-printf "LegisGATE adding the following jars to CLASSPATH\n"
-$LIBJARS
+BEHE_JOB=$MEMEXGATE_HOME/legisgate/libext/behemoth-$MODULE-*-job.jar
+EXEC_CALL="hadoop jar $BEHE_JOB"
 
-printf "LegisGATE STEP 1: Generating a Behemoth Corpus from input Nutch segments\n"
-hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-io-1.2-SNAPSHOT-job.jar com.digitalpebble.behemoth.io.nutch.NutchSegmentConverterJob -libjars "$LIBJARS" -dir data/press/segments behemoth_corpus/legisgate_corpus_press 
+# check that hadoop can be found on the path
+if [ $(which hadoop | wc -l ) -eq 0 ]; then
+  echo "Can't find Hadoop executable. Add HADOOP_HOME/bin to the path"
+  exit -1;
+fi
 
-printf "LegisGATE STEP 2: Parsing the Behemoth corpus using Tika\n"
-hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-tika-1.2-SNAPSHOT-job.jar com.digitalpebble.behemoth.tika.TikaDriver -libjars "$LIBJARS" -i behemoth_corpus/legisgate_corpus_press -o behemoth_corpus/legisgate_corpus_press_tika
-
-printf "LegisGATE STEP 3: Processesing the Behemoth corpus with LegisGATE application\n"
-hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-gate-1.2-SNAPSHOT-job.jar com.digitalpebble.behemoth.gate.GATEDriver behemoth_corpus/legisgate_corpus_press_tika behemoth_corpus/legisgate_corpus_press_annotated apps/legisgate3.zip
-
-printf "LegisGATE STEP 4: Indexing the annotated corpus to Elasticsearch\n"
-hadoop jar $LEGISGATE_HOME/legisgate/libext/behemoth-elasticsearch-1.0-SNAPSHOT.jar com.digitalpebble.behemoth.es.ESIndexerJob -D es.resource=labor/press -D es.metadata=true -D es.annotations=true behemoth_corpus/legisgate_corpus_press_annotated
-
-#mvn clean package 
-
-#hadoop jar $behe_home/core/target/behemoth-core-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusGenerator -i $behe_home/gate/src/test/resources/docs -o textcorpus
-
-#hadoop jar $behe_home/core/target/behemoth-core-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusGenerator -i $behe_home/gate/src/test/resources/docs -o textcorpus
-
-# have a quick look at the content
-#hadoop fs -libjars $behe_home/core/target/behemoth-core-1.0-SNAPSHOT-job.jar -text textcorpus
-
-# process with GATE
-#module=gate
-#hadoop fs -copyFromLocal $behe_home/$module/src/test/resources/ANNIE.zip ANNIE.zip
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.gate.GATEDriver -conf $behe_home/conf/behemoth-site.xml textcorpus textcorpusANNIE ANNIE.zip
-
-# generate a XML corpus locally 
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.gate.GATECorpusGenerator -conf $behe_home/conf/behemoth-site.xml -i textcorpusANNIE -o GATEXMLCorpus
-
-# have a look at the seqfile after processing using standard hadoop method
-#hadoop fs -libjars $behe_home/core/target/behemoth-core-1.0-SNAPSHOT-job.jar -text textcorpusANNIE/part-*
-
-# extract content from seq files
-#hadoop jar ./behemoth-core*job.jar com.digitalpebble.behemoth.util.ContentExtractor -i seq-directory -o seqdirectory-output
-
-
-
-# process with Tika
-#module=tika
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.tika.TikaDriver -i textcorpus -o textcorpusTika 
-
-# process with Language-ID
-#module=language-id
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.languageidentification.LanguageIdDriver -i textcorpusTika -o textcorpusTikaLang
-
-# same but filter on language 
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.languageidentification.LanguageIdDriver -D document.filter.md.keep.lang=en -i textcorpusTika -o -o textcorpusTika-EN
-
-
-#filter on mime type
-#module = core
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusFilter -D document.filter.mimetype.keep=.+html.* -i textcorpusTika -o textcorpusTika-html
-
-#filter on url
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusFilter -D document.filter.url.keep=.+13.* -i textcorpusTika -o textcorpusTika-13
-
-#filter on label
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusFilter -D document.filter.md.keep.label=contract -i textcorpusTika -o textcorpusTika-contracts
-
-#set filter mode
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.util.CorpusFilter -D document.filter.md.mode=OR 
-
-# Cluster/DocumentID dump
-#hadoop jar ./behemoth-mahout*job.jar com.digitalpebble.behemoth.mahout.util.ClusterDocIDDumper -i  .../clusteredPoints -o cluster-mapping
-
-
-
-
-# process with UIMA
-#module=uima
-#hadoop fs -copyFromLocal $behe_home/$module/src/test/resources/WhitespaceTokenizer.pear WhitespaceTokenizer.pear
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.uima.UIMADriver -conf $behe_home/behemoth-site.xml textcorpusTika textcorpusUIMA WhitespaceTokenizer.pear
-
-# generate vectors for Mahout
-#module=mahout
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.mahout.SparseVectorsFromBehemoth -i textcorpusUIMA -o textcorpus-vectors -t org.apache.uima.TokenAnnotation --namedVector
-
-
-
-
-# processing a web archive
-#module=io
-#hadoop fs -copyFromLocal $behe_home/$module/src/test/resources/ClueWeb09_English_Sample.warc ClueWeb09.warc
-#hadoop jar $behe_home/$module/target/behemoth-io-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.io.warc.WARCConverterJob -conf $behe_home/conf/behemoth-site.xml ClueWeb09.warc ClueWeb09
-#module=gate
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.behemoth.gate.GATEDriver -conf $behe_home/conf/behemoth-site.xml ClueWeb09 ClueWeb09Annie ANNIE.zip
-
-# corpus reader (useful for older version of Hadoop e.g. 0.18.x)
-#module=core
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar  com.digitalpebble.behemoth.util.CorpusReader -conf $behe_home/conf/behemoth-site.xml -i ClueWeb09Annie
-
-# corpus filter
-#module=core
-#hadoop jar $behe_home/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar  com.digitalpebble.behemoth.util.CorpusFilter -D document.filter.md.keep.isCV=true -i input -0 outputCV
-
-# use of SOLR -> requires to have a SOLR instance running
-#module=solr
-#hadoop jar $behe_solr/$module/target/behemoth-$module-1.0-SNAPSHOT-job.jar com.digitalpebble.solr.SOLRIndexerJob ClueWeb09Annie http://69.89.5.5:8080/solr
-
+# run it
+exec $EXEC_CALL $CLASS "$@"
 
