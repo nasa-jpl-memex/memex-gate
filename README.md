@@ -4,23 +4,23 @@
 
 Introduction... what is it?
 ------------------------
-A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over legislative resources such as online ads, debarment information, federal and district court appeals, press releases, etc. The MemexGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale with a specific focus on the legislative domain.
+A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over document resources such as online ads, debarment information, federal and district court appeals, press releases, news articles, social media streams, etc. The MemexGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale.
 
 Features
 ---------
- * ingesting from common data sources ([Warc](http://www.digitalpreservation.gov/formats/fdd/fdd000236.shtml), [Nutch Segments](http://nutch.apache.org), etc...)
+ * ingesting from common data sources ([Warc](http://www.digitalpreservation.gov/formats/fdd/fdd000236.shtml), [Nutch Segments](http://nutch.apache.org), etc...), raw files (PDF, MSWord, Excel...) and Hadoop Sequence Files
  * text processing ([Apache Tika](http://tika.apache.org), [Apache UIMA](http://uima.apache.org), [GATE](https://gate.ac.uk), Language Identification) such as tokenization, sentence splitting, part-of-speech tagging, etc.
  * named entity recognition e.g. identification and explicit featurization of proper names, people. locations, organizations, date/time expressions, measures (percent, money, weight), email addresses, U.S. business addresses, U.S. district attorney names, U.S. Federal and State Judges, U.S. Districts, U.S. Courts, dates, websites, ages, genders, legal lexicon, etc.
  * classification of named entities into predefined categories of interest
  * shallow parsing of entities present within taxonomies or lexicon of terms e.g. legal lexicon
- * generating output for external tools (Apache Solr, Elasticsearch, Mahout)
+ * generating output for external tools ([Apache Solr](http://lucene.apache.org/solr), [Elasticsearch](https://www.elastic.co/), [Mahout](http://mahout.apache.org))
 
 Use Cases
 ----------
- * Scrape all court documents from prosecution offices (at Federal and State level) and determine, based on terminology used in the releases, how many cases of a particular type are being brought before the court.
+ * Scrape all court documents from prosecution offices (at Federal and State level) and determine, based on terminology used in the releases, how many cases of a particular nature/type are being brought before the court(s).
  * Scrape all press releases from prosecution offices (at Federal and State level) and determine, based on terminology used in the releases, how many cases of a particular type are being brought forward.
  * Based on domain research and use of domain specific entities, define features (via Natural Language Processing and/or Named Entity Recognition) and make them searchable for researchers and investigators alike
- * Advance the ability to visualize sonnections between ads, debarment information, court documents, press releases, etc 
+ * Advance the ability to visualize connections between ads, debarment information, court documents, press releases, etc 
 
 This tool heavily leverages the [GATE](http://gate.ac.uk) software. GATE is an acronym for General Architecture for Text Engineering.
 Please see below for all of the steps required to use the software. 
@@ -31,7 +31,22 @@ The document corpus' I've made available can be used with the MemexGATE applicat
  * classification of named entities into predefined categories of interest
  * shallow parsing of entities present within taxonomies or lexicon of terms e.g. legal lexicon
 
-#Prerequisites
+# Dockerfile
+MemexGATE comes with a Dockerfile for rapid deployment and prototyping of textual document engineering and processing pipelines.
+
+## Build the Docker Container
+```
+$ cd docker
+$ docker build . 
+``` 
+This task will take a lengthy duration... best to go and grab a cup of tea!
+
+## Use the Container
+```
+$ 
+```
+
+#Prerequisites for Manual Installation
 
  * [Python](https://www.python.org/) - >= 1.7
  * [Apache Maven](http://mavem.apache.org) - preferably the latest

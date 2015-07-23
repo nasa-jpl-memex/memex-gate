@@ -78,7 +78,7 @@ ENV PATH $PATH:/usr/local/mahout/bin
 ########################
 ENV HADOOP_PKG_NAME hadoop-2.2.0
 RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.2.0/$HADOOP_PKG_NAME.tar.gz && \
-    tar -xvzf $HADOOP+PKG_NAME.tar.gz && \
+    tar -xvzf $HADOOP_PKG_NAME.tar.gz && \
     mv $HADOOP_PKG_NAME /usr/local/hadoop
 
 WORKDIR /usr/local
@@ -103,9 +103,6 @@ VOLUME ["/data"]
 # Mount elasticsearch.yml config
 ADD config/elasticsearch.yml /usr/local/elasticsearch/config/elasticsearch.yml
 
-# Define working directory.
-WORKDIR /data
-
 # Define default command.
 CMD ["/usr/local/elasticsearch/bin/elasticsearch"]
 
@@ -124,5 +121,8 @@ EXPOSE 9300
 # MemexGATE #
 #############
 WORKDIR /usr/local
-RUN git https://github.com/lewismc/legisgate.git
+RUN git clone https://github.com/memex-explorer/memex-gate.git
+ENV MEMEXGATE_HOME /usr/local/memex-gate 
+#so you can call 'memexgate'
+ENV PATH $PATH:$MEMEXGATE_HOME/bin
 
