@@ -52,26 +52,16 @@ RUN ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
 USER root
 
-#WORKDIR /src/mahout
-#RUN git clone https://github.com/apache/mahout.git /src/mahout
-
 WORKDIR /tmp
 
-RUN wget http://archive.apache.org/dist/mahout/0.10.0/mahout-distribution-0.10.0.tar.gz && \
-    tar -xvzf mahout-distribution-0.10.0.tar.gz && \
-    mv mahout-distribution-0.10.0 /usr/local/mahout
-
-RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.2.0/hadoop-2.2.0.tar.gz && \
-    tar -xvzf hadoop-2.2.0.tar.gz && \
-    mv hadoop-2.2.0 /usr/local/hadoop
-
-WORKDIR /usr/local
-RUN chown -R hduser:hadoop hadoop
-
-
-# ENV needs to be used, as the above doesn't seem to be visible from cli
-ENV JAVA_HOME /usr
-ENV HADOOP_HOME /usr/local/hadoop
+########################
+# Apache Mahout 0.10.0 #
+########################
+ENV MAHOUT_PKG_NAME mahout-distribution-0.10.0
+RUN wget http://archive.apache.org/dist/mahout/0.10.0/$MAHOUT_PKG_NAME.tar.gz && \
+    tar -xvzf $MAHOUT_PKG_NAME.tar.gz && \
+    rm -f $MAHOUT_PKG_NAME.tar.gz && \
+    mv $MAHOUT_PKG_NAME /usr/local/mahout
 
 # Needed to specify that we are running without a cluster
 ENV MAHOUT_LOCAL true
@@ -83,12 +73,56 @@ RUN sed 's#session\s*required\s*pam_loginuid.so#session optional pam_loginuid.so
 # so you can call 'mahout'
 ENV PATH $PATH:/usr/local/mahout/bin
 
-# Obtain the sources for DigitalPebble's Behemoth
-WORKDIR /usr/local
-RUN git clone https://github.com/DigitalPebble/behemoth.git
-cd behemoth && mvn clean install -DskipTests
+########################
+# Apache Hadoop 2.2.0  #
+########################
+ENV HADOOP_PKG_NAME hadoop-2.2.0
+RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.2.0/$HADOOP_PKG_NAME.tar.gz && \
+    tar -xvzf $HADOOP+PKG_NAME.tar.gz && \
+    mv $HADOOP_PKG_NAME /usr/local/hadoop
 
-# Finally obtain the LegisGATE application
+WORKDIR /usr/local
+RUN chown -R hduser:hadoop hadoop
+
+# ENV needs to be used, as the above doesn't seem to be visible from cli
+ENV JAVA_HOME /usr
+ENV HADOOP_HOME /usr/local/hadoop
+
+#######################
+# Elasticsearch 1.5.0 #
+#######################
+ENV ES_PKG_NAME elasticsearch-1.5.0
+RUN wget https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
+  tar -xvzf $ES_PKG_NAME.tar.gz && \
+  rm -f $ES_PKG_NAME.tar.gz && \
+  mv $ES_PKG_NAME /usr/local/elasticsearch
+
+# Define mountable directories.
+VOLUME ["/data"]
+
+# Mount elasticsearch.yml config
+ADD config/elasticsearch.yml /usr/local/elasticsearch/config/elasticsearch.yml
+
+# Define working directory.
+WORKDIR /data
+
+# Define default command.
+CMD ["/usr/local/elasticsearch/bin/elasticsearch"]
+
+# Expose ports.
+# - 9200: HTTP
+# - 9300: transport
+EXPOSE 9200
+EXPOSE 9300
+
+# Obtain the sources for DigitalPebble's Behemoth
+#WORKDIR /usr/local
+#RUN git clone https://github.com/DigitalPebble/behemoth.git
+#cd behemoth && mvn clean install -DskipTests
+
+#############
+# MemexGATE #
+#############
 WORKDIR /usr/local
 RUN git https://github.com/lewismc/legisgate.git
 
