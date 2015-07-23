@@ -79,6 +79,7 @@ ENV PATH $PATH:/usr/local/mahout/bin
 ENV HADOOP_PKG_NAME hadoop-2.2.0
 RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.2.0/$HADOOP_PKG_NAME.tar.gz && \
     tar -xvzf $HADOOP_PKG_NAME.tar.gz && \
+    rm -f $HADOOP_PKG_NAME.tar.gz && \
     mv $HADOOP_PKG_NAME /usr/local/hadoop
 
 WORKDIR /usr/local
@@ -87,6 +88,9 @@ RUN chown -R hduser:hadoop hadoop
 # ENV needs to be used, as the above doesn't seem to be visible from cli
 ENV JAVA_HOME /usr
 ENV HADOOP_HOME /usr/local/hadoop
+
+# so you can call 'hadoop', etc
+ENV PATH $PATH:/usr/local/hadoop/bin
 
 #######################
 # Elasticsearch 1.5.0 #

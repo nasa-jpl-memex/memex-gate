@@ -4,7 +4,7 @@
 
 Introduction... what is it?
 ------------------------
-A server side application for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over document resources such as online ads, debarment information, federal and district court appeals, press releases, news articles, social media streams, etc. The MemexGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale.
+A server side application and environment for running large scale [General Architecture Text Engineering](https://gate.ac.uk/) tasks over document resources such as online ads, debarment information, federal and district court appeals, press releases, news articles, social media streams, etc. The MemexGATE application is itself run in conjunction with [Behemoth](https://github.com/DigitalPebble/behemoth) to provide an annotation-based implementation of document corpi and a number of modules operating on these documents. The project can be used to simplify the deployment of document analysers on a large scale.
 
 Features
 ---------
