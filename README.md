@@ -32,19 +32,41 @@ The document corpus' I've made available can be used with the MemexGATE applicat
  * shallow parsing of entities present within taxonomies or lexicon of terms e.g. legal lexicon
 
 # Dockerfile
-MemexGATE comes with a Dockerfile for rapid deployment and prototyping of textual document engineering and processing pipelines.
-
-## Build the Docker Container
+MemexGATE is available on Dockerhub for rapid deployment and prototyping of textual document engineering and processing pipelines.
+To get the MemexGATE application and environment make sure you have [Docker](https://www.docker.com/) installed then simply
 ```
-$ cd docker
-$ docker build . 
+$ docker pull lewismc/memex-gate
+$ docker run -t -i lewismc/memex-gate /bin/bash
+```
+You will not be within your own environment with all of the tools required to run MemexGATE, namely Hadoop 2.2.0, Mahout 0.10.0, Tika 1.9, Gate 8.1, etc.
+You can run MemexGATE as follows
+```
+root@e4e137838adc:/usr/local# memexgate
+   _____                                 ________    ___________________________
+  /     \   ____   _____   ____ ___  ___/  _____/   /  _  \__    ___/\_   _____/
+ /  \ /  \_/ __ \ /     \_/ __ \  \/  /   \  ___  /  /_\  \|    |    |    __)_
+/    Y    \  ___/|  Y Y  \  ___/ >    <\    \_\  \/    |    \    |    |  v0.1  \
+\____|__  /\___  >__|_|  /\___  >__/\_ \______  /\____|__  /____|   /_______  /
+        \/     \/      \/     \/      \/       \/         \/                 \/
+Server side framework for large scale General Architecture Text Engineering tasks.
+Usage: run COMMAND
+where COMMAND is one of:
+  ioWarc           load documents from WARC
+  ioNutch          load documents from Nutch segment(s)
+  ioHadoop         load documents from Hadoop Sequence files
+  importer         generate a SequenceFile containing BehemothDocuments given a directory of raw docs
+  reader           read and inspect document corpus
+  exporter         read and execute intermediate document extraction creating new corpus
+  filter           filter documents and create new corpus
+  gate             process documents using MemexGATE apps
+  tika             parse documents using Tika
+  uima             process documents using UIMA
+  mahout           generate vectors for clustering with Mahout
+  solr             send documents to Solr for indexing
+  elastic          send documents to ElasticSearch for indexing
+  language-id      identify the language of documents
+Most commands print help when invoked w/o parameters.
 ``` 
-This task will take a lengthy duration... best to go and grab a cup of tea!
-
-## Use the Container
-```
-$ 
-```
 
 #Prerequisites for Manual Installation
 
