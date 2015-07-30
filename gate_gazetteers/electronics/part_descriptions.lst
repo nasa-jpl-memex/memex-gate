@@ -1,0 +1,163 @@
+PLD
+PLD
+SX-A72K GATES 4024 MC 250MHZ IND ANTIFUSE 2.5/3.3/5V 208QFP
+FPGA Fusion Family 1.5M Gates 1098.9MHz 130nm Technology 1.5V 256-Pin FBGA
+FPGA ProASIC 3E Family 3M Gates 310 MHz 130nm Technology 1.5V 896-Pin FBGA
+FPGA ProASIC 3L Family 600K Gates 892.86MHz 130nm Technology 1.2V 208-Pin PQFP
+FPGA SX-A 72K GATES 4024 CELLS 250MHZ 0.25UM/0.22UM 2.5V2S6
+Cannot find this part
+Microcontroller
+Processor, Risc
+Microcontroller, Flash
+Processor, Graphics
+Microprocessor
+Virtex 1
+Spartan 6
+Rad Hard 4000 series FPGA (stock in I, not Q)
+Spartan 2 FPGA
+4000 Series FPGA
+Virtex 4 without PowerPC (LX = Logic)
+Virtex 4 without PowerPC (LX = Logic)
+Radhard Virtex 4 (no stock in Q, stock in I)
+FPGA
+FPGA
+FPGA
+FPGA
+FPGA
+CPLD MAX 3000A Family 10K Gates 512 Macro Cells 87MHz 3.3V 256-Pin FBGA
+IC CPLD 32MC 7.5NS 44TQFP
+CPLD MAX 7000S Family 2.5K Gates 128 macro Cells 100MHz 5V 100-Pin PQFP
+CPLD MAX 7000A Family 5K gates 256 Macro Cells 126.6MHz 3.3V 144-Pin TQFP
+CPLD MAX 9000 Family 8K Gates 400 Macro Cells 117.6MHz 5V 84-Pin PLCC
+CPLD MAX 9000 Family 12K Gates 560 Macro Cells 144.9MHz 5V 356-Pin BGA
+CPLD MAX 9000 Family 12K Gates 560 Macro Cells 144.9MHz 5V 240-Pin RQFP
+PROC, ENHANCED SCC
+
+Micro, DSP
+FPGA SX-A 72K GATES 4024 CELLS 217MHZ 0.25UM/0.22UM 2.5V 208
+FPGA SX-A Family 72K Gates 4024 Cells 217MHz 0.25um/0.22um (CMOS) Technology 2.5V 208-Pin PQFP
+FPGA ACT 3 6K GATES 848 CELLS 100MHZ 0.8UM 5V 196CQFP
+IC FPGA 500K GATES 512KB 256-BGA
+FPGA SX-A 32K GATES 1800 CELLS 278MHZ 0.25UM/0.22UM 2.5V 208
+FPGA SX-A 32K GATES 1800 CELLS 278MHZ 0.25UM/0.22UM 2.5V 256
+FPGA SX-A 32K GATES 1800 CELLS 238MHZ 0.25UM/0.22UM 2.5V 208
+FPGA SX-A Family 32K Gates 1800 Cells 238MHz 0.25um Technology 2.5V 208-Pin PQFP
+FPGA SX-A Family 32K Gates 1800 Cells 238MHz 0.25um Technology 2.5V 100-Pin TQFP
+FPGA SX 32K GATES 1800 CELLS 205MHZ 0.35UM 3.3V/5V 208PQFP
+FPGA SX-A 72K GATES 4024 CELLS 250MHZ 0.25UM/0.22UM 2.5V 208
+FPGA SX-A Family 72K Gates 4024 Cells 250MHz 0.25um Technolgy 2.5V 208-Pin PQFP
+SX-A 72K GATES 4024 MC 250MHZ IND ANTIFUSE 2.5/3.3/5V 208QFP
+Microcontroller, serial
+memory, UV EEPROM
+Memory, EEPROM
+Memory, EEPROM
+Memory, Novram
+Spartan 3 with stacked Config PROM
+Spartan 3  
+4000 Series FPGA
+Lower Power 4000 Series FPGA
+Lower Power 4000 Series FPGA
+Lower Power 4000 Series FPGA
+Lower Power 4000 Series FPGA
+Lower Power 4000 Series FPGA
+Virtex 4 with embedded Power PC processor
+Virtex 4 without PowerPC (LX = Logic)
+Virtex 4 without PowerPC (LX = Logic)
+Spartan 6
+Virtex 1
+Virtex 1 (stock in I only)
+Radhard Virtex 1 (no stock in Q, stock in C and FG pakcage)
+Radhard Virtex 1 (no stock in Q, stock in C)
+Coolrunner CPLD
+Coolrunner CPLD (lead free)
+Coolrunner CPLD
+Coolrunner CPLD
+9500 Series CPLD
+9500 Series CPLD
+9500 Series CPLD
+9500 Series CPLD
+Coolrunner CPLD
+Coolrunner CPLD
+Receiver
+PLL Synthesizer
+Transceiver
+FLIP-FLOP
+Modem
+Modem
+Amplifier, Audio
+Serial Controller
+Interface, Decoder/CTR
+Memory, UV PROM
+Voltage Reference
+OP AMP
+MUX, 8-Channel
+DAC, 12-BIT
+OP AMP
+Memory, EEPROM
+Intrumentation Amp
+Instrumentation Amp
+ADC, 16-BIT
+DAC, 12-BIT
+DAC, 12-BIT
+DAC, 16-BIT
+OP AMP
+ADC, 12-BIT
+Video Accelerator
+Modem
+Modem Data Pump
+Memory, SRAM
+Memory, SRAM
+Photosensor
+Serial Controller
+Multivibrator
+Memory, EEPROM
+Memory, SRAM
+Frequency Generator
+Memory, SRAM
+Multiplexer
+OP AMP
+Comparator
+OP AMP
+Power Buffer
+Voltage Regulator
+Current Driver
+
+
+
+Cartridge Proto Board
+Switching Regulator
+Switch, SPST
+Power Supply Controller
+Current Driver
+Power Transistor
+Power Transistor
+LAN Controller
+Interface Adaptor
+Interface Adaptor
+MOSFET
+Driver/Receiver
+OP AMP
+OP AMP
+OP AMP
+OP AMP
+OP AMP
+Freq Synthesizer
+Driver/Receiver
+Programmable Timer
+Multiplexer
+Rectifier Diode
+
+Memory, SRAM
+Multiplexer
+ADC, 12-BIT
+PCM Codec
+ADC, 16-BIT
+
+
+Memory, SRAM
+Memory, SRAM
+Serial Controller
+Counter/Timer
+
+
+
