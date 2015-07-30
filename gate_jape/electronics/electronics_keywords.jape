@@ -1,5 +1,5 @@
 Phase: Electronics
-Input: Loopup 
+Input: Lookup 
 
 Rule: ElectronicsAddressRule
 (
@@ -7,9 +7,7 @@ Rule: ElectronicsAddressRule
 ):electKey
 -->
 
-:electKey.ElectronicsAddress = {rule = "ElectronicsAddressRule",
-string = :electKey.Lookup <at> string}
-
+:electKey.ElectronicsAddress = {rule = "ElectronicsAddressRule", string = :electKey.Lookup @string}
 
 Rule: ElectronicsCompanyRule
 (
@@ -17,8 +15,7 @@ Rule: ElectronicsCompanyRule
 ):electKey
 -->
 
-:electKey.ElectronicsCompany = {rule = "ElectronicsCompanyRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsCompany = {rule = "ElectronicsCompanyRule", string = :electKey.Lookup @string}
 
 
 Rule: ElectronicsDeviceRule
@@ -27,8 +24,7 @@ Rule: ElectronicsDeviceRule
 ):electKey
 -->
 
-:electKey.ElectronicsDevice = {rule = "ElectronicsDeviceRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsDevice = {rule = "ElectronicsDeviceRule", string = :electKey.Lookup @string}
 
 
 Rule: ElectronicsDistrictRule
@@ -37,8 +33,7 @@ Rule: ElectronicsDistrictRule
 ):electKey
 -->
 
-:electKey.ElectronicsDistrict = {rule = "ElectronicsDistrictRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsDistrict = {rule = "ElectronicsDistrictRule", string = :electKey.Lookup @string}
 
 
 Rule: ElectronicsManufacturerRule
@@ -47,8 +42,7 @@ Rule: ElectronicsManufacturerRule
 ):electKey
 -->
 
-:electKey.ElectronicsManufacturer = {rule = "ElectronicsManufacturerRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsManufacturer = {rule = "ElectronicsManufacturerRule", string = :electKey.Lookup @string}
 
 
 Rule: ElectronicsPartDescriptionRule
@@ -57,8 +51,7 @@ Rule: ElectronicsPartDescriptionRule
 ):electKey
 -->
 
-:electKey.ElectronicsPartDescription = {rule = "ElectronicsPartDescriptionRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsPartDescription = {rule = "ElectronicsPartDescriptionRule", string = :electKey.Lookup @string}
 
 
 Rule: ElectronicsPartNameRule
@@ -67,7 +60,6 @@ Rule: ElectronicsPartNameRule
 ):electKey
 -->
 
-:electKey.ElectronicsPartName = {rule = "ElectronicsPartNameRule",
-string = :electKey.Lookup <at> string}
+:electKey.ElectronicsPartName = {rule = "ElectronicsPartNameRule", string = :electKey.Lookup @string}
 
 
