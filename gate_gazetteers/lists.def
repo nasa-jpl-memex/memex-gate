@@ -1,10 +1,10 @@
-addresses.lst:address:electronic::ElectronicsAddress
-companies.lst:company:electronic::ElectronicsCompany
-deviceTypes.lst:deviceType:electronic::ElectronicsDevice
-districts.lst:district:electronic::ElectronicsDistrict
-manufacturer_names.lst:manufacturer:electronic::ElectronicsManufacturer
-part_descriptions.lst:partDescription:electronic::ElectronicsPartDescription
-part_names.lst:partName:electronic::ElectronicsPartName
+addresses.lst:address:electronic
+companies.lst:company:electronic
+deviceTypes.lst:deviceType:electronic
+districts.lst:district:electronic
+manufacturer_names.lst:manufacturer:electronic
+part_descriptions.lst:partDescription:electronic
+part_names.lst:partName:electronic
 b2b_labor_recruiter_ads.lst:term:laborRecruiter::LaborRecruitment
 business_profile_site.lst:profile:business::BusinessProfile
 ist_labor_vocab.lst:term:labor::LaborVocab
