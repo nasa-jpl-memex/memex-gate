@@ -1,0 +1,73 @@
+Phase: Electronics
+Input: Loopup 
+
+Rule: ElectronicsAddressRule
+(
+({Lookup.majorType == "address", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsAddress = {rule = "ElectronicsAddressRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsCompanyRule
+(
+({Lookup.majorType == "company", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsCompany = {rule = "ElectronicsCompanyRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsDeviceRule
+(
+({Lookup.majorType == "deviceType", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsDevice = {rule = "ElectronicsDeviceRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsDistrictRule
+(
+({Lookup.majorType == "district", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsDistrict = {rule = "ElectronicsDistrictRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsManufacturerRule
+(
+({Lookup.majorType == "manufacturer", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsManufacturer = {rule = "ElectronicsManufacturerRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsPartDescriptionRule
+(
+({Lookup.majorType == "partDescription", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsPartDescription = {rule = "ElectronicsPartDescriptionRule",
+string = :electKey.Lookup <at> string}
+
+
+Rule: ElectronicsPartNameRule
+(
+({Lookup.majorType == "partName", Lookup.minorType == "electronic"})
+):electKey
+-->
+
+:electKey.ElectronicsPartName = {rule = "ElectronicsPartNameRule",
+string = :electKey.Lookup <at> string}
+
+
