@@ -56,7 +56,8 @@
 
 	<property>
 		<name>gate.annotations.filter</name>
-		<value>ElectronicsKeywords,Keyword</value>
+		<value>ElectronicsAddress,ElectronicsCompany,ElectronicsDevice,ElectronicsDistrict,ElectronicsManufacturer,
+			ElectronicsPartDescription,ElectronicsPartName</value>
 		<description>Annotations types to consider when serializing to the
 			behemoth format, separated by commas
 		</description>
@@ -64,8 +65,14 @@
 
 	<property>
 		<name>gate.features.filter</name>
-		<value>ElectronicsKeywords.string,ElectronicsKeywords.cleanString,ElectronicsKeywords.language,ElectronicsKeywords.minorType,ElectronicsKeywords.majorType,
-                       Keyword.string,Keyword.cleanString,Keyword.language,Keyword.minorType,Keyword.majorType</value>
+		<value>ElectronicsAddress.string,ElectronicsAddress.majorType,ElectronicsAddress.minorType,
+			   ElectronicsCompany.string,ElectronicsCompany.majorType,ElectronicsCompany.minorType,
+			   ElectronicsDevice.string,ElectronicsDevice.majorType,ElectronicsDevice.minorType,
+			   ElectronicsDistrict.string,ElectronicsDistrict.majorType,ElectronicsDistrict.minorType,
+			   ElectronicsManufacturer.string,ElectronicsManufacturer.majorType,ElectronicsManufacturer.minorType,
+			   ElectronicsPartDescription.string,ElectronicsPartDescription.majorType,ElectronicsPartDescription.minorType,
+			   ElectronicsPartName.string,ElectronicsPartName.majorType,ElectronicsPartName.minorType
+		</value>
 		<description>if specified, only the feature listed for a type will be
 			kept
 		</description>
