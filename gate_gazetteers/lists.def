@@ -1,3 +1,9 @@
+parameter.lst:measurement:name
+collections.lst:collections:name
+platform.lst:platform:name
+sensor.lst:instrument:sensor
+spatial_coverage.lst:geographical:region
+latency.lst:latency:name
 addresses.lst:address:electronic
 companies.lst:company:electronic
 deviceTypes.lst:deviceType:electronic
@@ -14,7 +20,6 @@ us_district_attorneys.lst:person_full:district_attorney::DistrictAttorney
 us_federal_district_attorneys.lst:person_full:federal_attorney::FederalAttorney
 us_federal_judges.lst:person_full:federal_judge::FederalJudge
 us_legal_lexicon.lst:term:legal_terminology::USLegalTerm
-us_withdrawn_patent_nos:us_patent_number:withdrawn
 adbc.lst:adbc
 agency.lst:organization:government
 airports.lst:location:airport
@@ -129,7 +134,6 @@ nba-teams.lst:organization:team
 nfl-teams.lst:organization:team
 company_lower.lst:organization:company
 companies_uk_lower.lst:organization:company
-bands.lst:organization:band
 music-artists.lst:person_full:music
 religious_adj.lst:religious_adj
 street.lst:

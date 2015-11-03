@@ -1,0 +1,57 @@
+Phase: PODAAC
+Input: Lookup 
+
+Rule: ParameterRule
+(
+({Lookup.majorType == "measurement", Lookup.minorType == "name"})
+):podaacKey
+-->
+
+:podaacKey.Parameter = {rule = "ParameterRule", string = :podaacKey.Lookup @string}
+
+
+Rule: CollectionsRule
+(
+({Lookup.majorType == "collections", Lookup.minorType == "name"})
+):podaacKey
+-->
+
+:podaacKey.Collections = {rule = "CollectionsRule", string = :podaacKey.Lookup @string}
+
+
+Rule: PlatformRule
+(
+({Lookup.majorType == "platform", Lookup.minorType == "name"})
+):podaacKey
+-->
+
+:podaacKey.Platform = {rule = "PlatformRule", string = :podaacKey.Lookup @string}
+
+
+Rule: SensorRule
+(
+({Lookup.majorType == "instrument", Lookup.minorType == "sensor"})
+):podaacKey
+-->
+
+:podaacKey.Sensor = {rule = "SensorRule", string = :podaacKey.Lookup @string}
+
+
+Rule: SpatialCoverageRule
+(
+({Lookup.majorType == "geographical", Lookup.minorType == "region"})
+):podaacKey
+-->
+
+:podaacKey.SpatialCoverage = {rule = "SpatialCoverageRule", string = :podaacKey.Lookup @string}
+
+
+Rule: LatencyRule
+(
+({Lookup.majorType == "latency", Lookup.minorType == "name"})
+):podaacKey
+-->
+
+:podaacKey.Latency = {rule = "LatencyRule", string = :podaacKey.Lookup @string}
+
+
