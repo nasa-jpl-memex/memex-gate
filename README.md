@@ -37,6 +37,10 @@ To get the MemexGATE application and environment make sure you have [Docker](htt
 ```
 $ docker pull lewismc/memex-gate
 $ docker run -t -i lewismc/memex-gate /bin/bash
+
+N.B. If you are on MacOSX you may need to run the following two commands first
+$ boot2docker start
+$ $(boot2docker shellinit)
 ```
 You will not be within your own environment with all of the tools required to run MemexGATE, namely Hadoop 2.2.0, Mahout 0.10.0, Tika 1.9, Gate 8.1, etc.
 You can run MemexGATE as follows
